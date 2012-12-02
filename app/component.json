@@ -1,0 +1,11 @@
+{
+  "name": "pln",
+  "version": "1.0.0",
+  "main": "./static/pln/css/app.css",
+  "dependencies": {
+      "jquery": "latest",
+      "angular": "latest",
+      "d3": "latest",
+      "bootstrap.css": "latest"
+    }
+}
