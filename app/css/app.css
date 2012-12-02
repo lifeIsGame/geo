@@ -44,3 +44,14 @@ div.full {
 .map {
     height: 100%;
 }
+
+path {
+  fill: #FFF;
+  fill-opacity: 0;
+}
+
+path:hover {
+  fill: orange;
+  fill-opacity: .7;
+}
+
