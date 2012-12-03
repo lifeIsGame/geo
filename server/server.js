@@ -1,25 +1,27 @@
 // Tile server using the node web framework Express (http://expressjs.com).
 var express = require('express'),
+    tilelive = require('tilelive'),
     mbtiles = require('mbtiles'),
-    tilelive = require('tilelive');
+    mapnik = require('tilelive-mapnik');
 
 var app = express();
 mbtiles.registerProtocols(tilelive);
 
 app.get('/:z/:x/:y.*', function(req, res) {
-    var options = {
-        x: req.param('x'),
-        y: req.param('y'),
-        z: req.param('z'),
-        format: req.params[0],
-        datasource: __dirname + '/data/geography.mbtiles'
-    };
-    tilelive.load(__dirname + '/data/geography.mbtiles', function(err, data) {
-        if (!err) {
-            res.send.apply(res, data);
-        } else {
-            res.send('Tile rendering error: ' + err + '\n');
-        }
+    var x = req.param('x'),
+        y = req.param('y'),
+        z = req.param('z');
+
+    tilelive.load("mbtiles://" + __dirname + '/data/geography.mbtiles', function(err, source) {
+        if (err) throw err;
+
+        source.getTile(z, x, y, function(err, tile, headers) {
+            if (err) {
+                console.log(x,y,z);
+                return;
+            }
+            res.send(tile);
+        });
     });
 });
 

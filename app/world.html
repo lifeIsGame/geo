@@ -36,6 +36,7 @@
       'components/d3/d3.v2.min.js',
       'js/directives/leaflet.js',
       'js/app.js',
+      'js/controller.js',
     ], function() {
       // when all is done, execute bootstrap angular application
       angular.bootstrap(document, ['geoApp']);
@@ -47,9 +48,13 @@
   <link rel="stylesheet" href="components/leaflet/leaflet.css" />
   <link rel="stylesheet" href="css/app.css" />
 </head>
-<body>
+<body ng-controller="WorldCtrl">
   <div class="full">
-    <leaflet max-zoom="3" min-zoom="2" lat="40.094882122321145" lng="-3.8232421874999996"></leaflet>
+    <leaflet max-zoom="5" min-zoom="2" lat="40.094882122321145" lng="-3.8232421874999996" code="code"></leaflet>
+  </div>
+  <div class="flag" ng-show="code" ng-cloak>
+      <img ng-src="img/flags/96x64.3/{{code}}.png" />
+      <h3>Spain</h3>
   </div>
 </body>
 </html>

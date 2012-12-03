@@ -55,3 +55,22 @@ path:hover {
   fill-opacity: .7;
 }
 
+div.flag {
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    width: 25em;
+    height: 4em;
+    background: white;
+    border-radius: 8px;
+    //opacity: .5;
+    border: 4px solid #DDD;
+    padding: 1em;
+}
+
+div.flag > img {
+    height: 4em;
+    margin-right: 1em;
+    border-radius: 8px;
+    float: left;
+}

@@ -28,7 +28,6 @@
                     .style("margin-top", topRight[1] + "px");
 
                 g   .attr("transform", "translate(" + -bottomLeft[0] + "," + -topRight[1] + ")");
-
                 feature.attr("d", path);
             }
 
@@ -46,7 +45,11 @@
             replace: true,
             transclude: true,
             template: '<div class="map"></div>',
+            scope: {
+                code: "="
+            },
             link: function (scope, element, attrs, ctrl) {
+                scope.code="ESP";
                 var $el = element[0],
                     options = {
                         minZoom: attrs.minZoom || 12,
@@ -54,14 +57,20 @@
                         lat: attrs.lat || 40.094882122321145,
                         lng: attrs.lng || -3.8232421874999996
                     };
-
                 var map = new L.Map($el, options);
                 d3.json("world.geo.json/countries.geo.json", manageSvgData(map));
-                L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
+                L.tileLayer('http://localhost:8888/{z}/{x}/{y}.png').addTo(map);
                 // Default center of the map
                 var point = new L.LatLng(options.lat, options.lng);
                 map.setView(point, options.minZoom);
+
+                var svg = d3.select(map.getPanes().overlayPane).append("svg"),
+                    g = svg.append("g");
+
+                g.selectAll("path").on("mouseover", function(d) {
+                    scope.code = d.id;
+                    console.log(d.id);
+                });
             }
         };
     });

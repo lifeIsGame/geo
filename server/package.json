@@ -19,6 +19,7 @@
   "dependencies" : {
     "express"   :  "*",
     "tilelive"   :  "*",
+    "tilelive-mapnik"   :  "*",
     "mbtiles"   :  "*",
     "sqlite3"   :  "*",
     "jade"   :  "*"
