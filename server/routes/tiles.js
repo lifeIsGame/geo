@@ -6,18 +6,18 @@ mbtiles.registerProtocols(tilelive);
 
 module.exports = function(app) {
 
-    console.log(__dirname);
     tilelive.load("mbtiles://" + __dirname + '/../data/geography.mbtiles', function(err, source) {
         if (err) throw err;
 
-        app.get('tiles/:z/:x/:y.*', function(req, res) {
+        app.get('/tiles/:z/:x/:y.*', function(req, res) {
             var x = req.param('x'),
                 y = req.param('y'),
                 z = req.param('z');
 
+            console.log(source);
             source.getTile(z, x, y, function(err, tile, headers) {
                 if (err) {
-                    console.log(x,y,z);
+                    console.log(err, x,y,z);
                     return;
                 }
                 res.send(tile);

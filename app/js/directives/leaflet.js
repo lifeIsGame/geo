@@ -59,7 +59,7 @@
                     };
                 var map = new L.Map($el, options);
                 d3.json("world.geo.json/countries.geo.json", manageSvgData(map));
-                L.tileLayer('http://localhost:8888/{z}/{x}/{y}.png').addTo(map);
+                L.tileLayer('/tiles/{z}/{x}/{y}.png').addTo(map);
                 // Default center of the map
                 var point = new L.LatLng(options.lat, options.lng);
                 map.setView(point, options.minZoom);

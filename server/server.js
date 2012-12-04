@@ -20,7 +20,7 @@ app.configure(function() {
   app.use(express.bodyParser());
   app.use(express.session({ secret: 'eldorado' }));
   app.use(express.methodOverride());
-  app.use(express.static(__dirname + '/../static'));
+  app.use(express.static(__dirname + '/../app'));
   app.use(i18n.handle);
   app.use(passport.initialize());
   app.use(passport.session());
