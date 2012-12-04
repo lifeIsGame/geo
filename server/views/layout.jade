@@ -1,0 +1,47 @@
+!!! 5
+html(ng-app="nodeapp")
+  head
+    meta(charset='utf-8')
+    title= typeof(locals.title) !== 'undefined' ? locals.title : "Phone Liberation Network"
+    link(rel='stylesheet', href=settings.urls.base.url + '/css/theme-spacelab/bootstrap.min.css')
+    // Bootstrap + Bootswatch Spacelab
+    link(rel='stylesheet', href=settings.urls.base.url + '/components/bootstrap.css/css/bootstrap-responsive.min.css')
+    block css
+    link(rel='stylesheet', href=settings.urls.base.url + '/css/app.css')
+
+  body(ng-controller=locals.angular_controller)
+    div.container
+        header
+            div.row
+                div.span2
+                    a.brand(href=settings.urls.base.url)
+                        img(src=settings.urls.base.url + '/images/pln.160.png', style="margin-left: -20px;")
+                div.span10
+                    ul.nav.nav-pills.join.pull-right
+                        li(class=('join' == locals.menu_active) && 'active')
+                            a(href=settings.urls.join.url) Join the PLN
+                        li(class=('link' == locals.menu_active) && 'active')
+                            a(href=settings.urls.link.url) Link to this node
+                        li(class=('admin' == locals.menu_active) && 'active')
+                                a(href=settings.urls.admin.url) Admin
+                        - if (locals.username)
+                            li(class=('logout' == locals.menu_active) && 'active')
+                                a(href=settings.urls.logout.url) Logout
+                    div.navbar.navbar-inverse(style="clear: right;")
+                        div.navbar-inner.topmenu
+                            div.container
+                                div.nav-collapse
+                                    ul.nav.pull-right
+                                        - each item,key in settings.urls.menu
+                                            li(class=(key == locals.menu_active) && 'active')
+                                                a(href=item.url) #{item.name}
+        div.main.container-fluid
+            div.row-fluid
+                block leftmenu
+                block main
+
+        footer.footer
+            p.pull-right(style="padding-right: 20px;")
+                a(href="http://phoneliberation.net") Phone Liberation
+
+    block scripts

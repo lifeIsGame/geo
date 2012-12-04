@@ -1,28 +1,46 @@
-// Tile server using the node web framework Express (http://expressjs.com).
-var express = require('express'),
-    tilelive = require('tilelive'),
-    mbtiles = require('mbtiles'),
-    mapnik = require('tilelive-mapnik');
+var express = require('express')
+  , i18n = require('i18next')
+  , passport = require('passport')
+  , auth = require('./auth')
+  , flash = require('connect-flash')
+  , settings = require('./settings')
+  , urls = require('./urls');
+
+i18n.init();
 
 var app = express();
-mbtiles.registerProtocols(tilelive);
+module.exports = app;
 
-app.get('/:z/:x/:y.*', function(req, res) {
-    var x = req.param('x'),
-        y = req.param('y'),
-        z = req.param('z');
-
-    tilelive.load("mbtiles://" + __dirname + '/data/geography.mbtiles', function(err, source) {
-        if (err) throw err;
-
-        source.getTile(z, x, y, function(err, tile, headers) {
-            if (err) {
-                console.log(x,y,z);
-                return;
-            }
-            res.send(tile);
-        });
-    });
+// configure Express
+app.configure(function() {
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.logger());
+  app.use(express.cookieParser());
+  app.use(express.bodyParser());
+  app.use(express.session({ secret: 'eldorado' }));
+  app.use(express.methodOverride());
+  app.use(express.static(__dirname + '/../static'));
+  app.use(i18n.handle);
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(flash());
+  app.use(app.router);
 });
 
-app.listen(8888);
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function(){
+  app.use(express.errorHandler());
+});
+
+app.set("urls", urls);
+
+require('./routes')(app);
+app.listen(3000);
+
+i18n.registerAppHelper(app)
+
+//console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
