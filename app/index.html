@@ -30,15 +30,15 @@
     // load all of the dependencies asynchronously.
     $script([
       'components/jquery/jquery.min.js',
-      'components/bootstrap.css/js/bootstrap.min.js',
       'components/leaflet/leaflet.js',
       'components/angular/angular.js',
       'components/d3/d3.v2.min.js',
       'js/directives/leaflet.js',
       'js/app.js',
+      'js/controller.js',
     ], function() {
       // when all is done, execute bootstrap angular application
-      angular.bootstrap(document, ['geoApp']);
+      angular.bootstrap(document, ['geoapp']);
     });
   </script>
   <title>Geography maps game</title>
@@ -47,9 +47,13 @@
   <link rel="stylesheet" href="components/leaflet/leaflet.css" />
   <link rel="stylesheet" href="css/app.css" />
 </head>
-<body>
+<body ng-controller="WorldCtrl">
   <div class="full">
-    <leaflet class="map"></leaflet>
+    <leaflet max-zoom="5" min-zoom="2" lat="40.094882122321145" lng="-3.8232421874999996" code="code" country-name="countryName" country-name-size="countryNameSize"></leaflet>
+  </div>
+  <div class="flag" ng-show="code" ng-cloak>
+      <img ng-src="img/flags/96x64.3/{{code}}.png" />
+      <h3 ng-class="countryNameSize">{{countryName}}</h3>
   </div>
 </body>
 </html>

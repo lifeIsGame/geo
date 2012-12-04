@@ -74,3 +74,17 @@ div.flag > img {
     border-radius: 8px;
     float: left;
 }
+
+h3.small {
+  font-size: 1.4em;
+  line-height: 1em;
+}
+
+h3.medium {
+  font-size: 1.8em;
+  line-height: 1em;
+}
+
+h3.big {
+  font-size: 3.8em;
+}
