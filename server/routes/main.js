@@ -8,4 +8,19 @@ module.exports = function(app) {
         });
     }
 
+    app.get(urls.base.url, function(req, res) {
+	var title = "Geography maps";
+	res.render("home", { locals: {
+            title: title,
+        } });
+    });
+
+    app.get(urls.maps.world.explore.url, function(req, res) {
+	var title = "Geography maps";
+	res.render("world", { locals: {
+            title: title,
+            angular_controller: 'WorldCtrl',
+            controller_file: 'main'
+        } });
+    });
 }

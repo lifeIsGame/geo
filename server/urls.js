@@ -12,6 +12,13 @@ var urls = {
     },
     admin: {
         url: base_url + "/admin"
+    },
+    maps: {
+    	world: {
+            explore: {
+                url: base_url + "world/explore"
+            }
+        }
     }
 };
 

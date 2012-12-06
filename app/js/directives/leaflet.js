@@ -17,6 +17,8 @@
                 scope.countryName = d.properties.name;
 
                 if (d.properties.name.length < 7) {
+                    scope.countryNameSize = "extrabig";
+		} else if (d.properties.name.length < 14) {
                     scope.countryNameSize = "big";
                 } else if (d.properties.name.length < 25) {
                     scope.countryNameSize = "medium";
@@ -71,7 +73,7 @@
                         lng: attrs.lng || -3.8232421874999996
                     };
                 var map = new L.Map($el, options);
-                d3.json("world.geo.json/countries.geo.json", manageSvgData(map, scope));
+                d3.json("/world.geo.json/countries.geo.json", manageSvgData(map, scope));
                 L.tileLayer('/tiles/{z}/{x}/{y}.png').addTo(map);
                 // Default center of the map
                 var point = new L.LatLng(options.lat, options.lng);

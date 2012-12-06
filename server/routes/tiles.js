@@ -14,10 +14,8 @@ module.exports = function(app) {
                 y = req.param('y'),
                 z = req.param('z');
 
-            console.log(source);
             source.getTile(z, x, y, function(err, tile, headers) {
                 if (err) {
-                    console.log(err, x,y,z);
                     return;
                 }
                 res.send(tile);

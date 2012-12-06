@@ -51,20 +51,21 @@ path {
 }
 
 path:hover {
-  fill: orange;
-  fill-opacity: .7;
+  cursor: pointer;
+  fill: #FFF;
+  fill-opacity: .4;
 }
 
 div.flag {
     position: absolute;
     bottom: 1em;
     left: 1em;
-    width: 25em;
+    width: 26em;
     height: 4em;
     background: white;
     border-radius: 8px;
-    //opacity: .5;
-    border: 4px solid #DDD;
+    opacity: .8;
+    box-shadow: 0 0 5px 2px #888;
     padding: 1em;
 }
 
@@ -72,7 +73,9 @@ div.flag > img {
     height: 4em;
     margin-right: 1em;
     border-radius: 8px;
+    vertical-align: middle;
     float: left;
+    box-shadow: 0 0 5px 2px #AAA;
 }
 
 h3.small {
@@ -82,9 +85,17 @@ h3.small {
 
 h3.medium {
   font-size: 1.8em;
-  line-height: 1em;
+  line-height: .8em;
 }
 
 h3.big {
+  font-size: 2.8em;
+}
+
+h3.extrabig {
   font-size: 3.8em;
+}
+
+[ng-cloak] {
+  display: none;
 }
