@@ -12,6 +12,14 @@
 
             var feature = g.selectAll("path").data(collection.features).enter().append("path");
 
+	    g.on("mousemove", function(d) {
+		var mouse = d3.svg.mouse(this);
+		scope.mousex = mouse[0];
+		scope.mousey = mouse[1];
+                scope.$digest();
+                scope.$apply(function() {});
+            });
+
             feature.on("mouseover", function(d) {
                 scope.countryCode = d.properties.countryCode;
                 scope.countryName = d.properties.name;
@@ -26,9 +34,13 @@
                     scope.countryNameSize = "small";
                 }
                 scope.$digest();
-
                 scope.$apply(function() {});
             });
+
+	    feature.on("mouseout", function(d) {
+		scope.countryCode = undefined;
+                scope.$apply(function() {});
+	    });
 
             map.on("viewreset", reset);
             reset();
@@ -61,7 +73,9 @@
             scope: {
                 countryCode: "=",
                 countryName: "=",
-                countryNameSize: "="
+                countryNameSize: "=",
+                mousex: "=",
+                mousey: "="
             },
             link: function(scope, element, attrs, ctrl) {
                 var $el = element[0],

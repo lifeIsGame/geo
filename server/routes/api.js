@@ -37,6 +37,13 @@ module.exports = function(app) {
         });
     });
 
+    app.get(urls.api.countries.europe.url, function(req, res) {
+        Country.find({ continentName: "Europe"}, function(err, countries) {
+            if (err) throw err;
+            return res.send(countries);
+        });
+    });
+
     app.get(urls.api.countries.africa.url, function(req, res) {
         Country.find({ continentName: "Africa"}, function(err, countries) {
             if (err) throw err;
@@ -46,6 +53,14 @@ module.exports = function(app) {
 
     app.get(urls.api.countries.world.geojson.url, function(req, res) {
         Country.find(function(err, countries) {
+            if (err) throw err;
+	    var geojson = generateGEOJson(countries);
+            return res.send(JSON.stringify(geojson));
+        });
+    });
+
+    app.get(urls.api.countries.europe.geojson.url, function(req, res) {
+        Country.find({ continentName: "Europe" }, function(err, countries) {
             if (err) throw err;
 	    var geojson = generateGEOJson(countries);
             return res.send(JSON.stringify(geojson));

@@ -56,6 +56,28 @@ path:hover {
   fill-opacity: .4;
 }
 
+div.flag.mini {
+    position: absolute;
+    left: 14em;
+    bottom: 4em;
+    width: 24em;
+    height: 4em;
+    font-size: .5em;
+    border-radius: 4px;
+}
+
+div.flag.mini > img {
+    height: 4em;
+    margin-right: 1em;
+    border-radius: 4px;
+    vertical-align: middle;
+    box-shadow: 0 0 2px 1px #AAA;
+}
+
+div.flag > h3 {
+    line-height: 1em;
+}
+
 div.flag {
     position: absolute;
     top: 1em;
@@ -79,20 +101,22 @@ div.flag > img {
 }
 
 h3.small {
+  margin: .2em 0 0 0;
   font-size: 1.4em;
-  line-height: 1em;
 }
 
 h3.medium {
+  margin: .1em 0 0 0;
   font-size: 1.8em;
-  line-height: .8em;
 }
 
 h3.big {
+  margin: .3em 0 0 0;
   font-size: 2.8em;
 }
 
 h3.extrabig {
+  margin: .1em 0 0 0;
   font-size: 3.8em;
 }
 
