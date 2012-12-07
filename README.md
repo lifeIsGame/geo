@@ -1,7 +1,7 @@
-maps
-====
+geo
+===
 
-Geography Maps game
+Geography Maps Application build with node.js, angularJS, MongoDB and TileMill.
 
 Links:
 
