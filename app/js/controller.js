@@ -1,2 +1,2 @@
-function WorldCtrl($scope) {
+function ExploreController($scope, $location) {
 }

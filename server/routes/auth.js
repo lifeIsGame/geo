@@ -1,5 +1,5 @@
-var urls= require("../urls")
-  , passport = require("passport");
+var urls= require("../urls"),
+    passport = require("passport");
 
 module.exports = function(app) {
 
@@ -27,4 +27,4 @@ module.exports = function(app) {
         res.redirect(urls.base.url);
     });
 
-}
+};

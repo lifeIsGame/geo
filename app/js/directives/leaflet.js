@@ -1,6 +1,6 @@
 (function() {
 
-    var leafletDirective = angular.module("leaflet-directive", []);
+    var leafletDirective = angular.module("leaflet", []);
 
     function manageSvgData(map, scope) {
         var svg = d3.select(map.getPanes().overlayPane).append("svg"),
@@ -13,7 +13,7 @@
             var feature = g.selectAll("path").data(collection.features).enter().append("path");
 
             feature.on("mouseover", function(d) {
-                scope.code = d.id;
+                scope.countryCode = d.properties.countryCode;
                 scope.countryName = d.properties.name;
 
                 if (d.properties.name.length < 7) {
@@ -57,27 +57,28 @@
         return {
             restrict: "E",
             replace: true,
-            transclude: true,
             template: '<div class="map"></div>',
             scope: {
-                code: "=",
+                countryCode: "=",
                 countryName: "=",
                 countryNameSize: "="
             },
             link: function(scope, element, attrs, ctrl) {
                 var $el = element[0],
                     options = {
+                        zoom: attrs.zoom || 2,
                         minZoom: attrs.minZoom || 12,
                         maxZoom: attrs.maxZoom || 6,
                         lat: attrs.lat || 40.094882122321145,
                         lng: attrs.lng || -3.8232421874999996
                     };
+
                 var map = new L.Map($el, options);
-                d3.json("/world.geo.json/countries.geo.json", manageSvgData(map, scope));
+                d3.json("/api/countries/" + attrs.map + "/geojson", manageSvgData(map, scope));
                 L.tileLayer('/tiles/{z}/{x}/{y}.png').addTo(map);
                 // Default center of the map
                 var point = new L.LatLng(options.lat, options.lng);
-                map.setView(point, options.minZoom);
+                map.setView(point, options.zoom);
             }
         };
     });

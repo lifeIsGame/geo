@@ -6,7 +6,7 @@ mbtiles.registerProtocols(tilelive);
 
 module.exports = function(app) {
 
-    tilelive.load("mbtiles://" + __dirname + '/../data/geography.mbtiles', function(err, source) {
+    tilelive.load("mbtiles://" + __dirname + '/../../data/geography.mbtiles', function(err, source) {
         if (err) throw err;
 
         app.get('/tiles/:z/:x/:y.*', function(req, res) {
@@ -22,4 +22,4 @@ module.exports = function(app) {
             });
         });
     });
-}
+};

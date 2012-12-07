@@ -17,22 +17,20 @@
     "server"
   ],
   "dependencies" : {
+    "jshint"   :  "*",
     "express"   :  "*",
     "tilelive"   :  "*",
     "mbtiles"   :  "*",
     "sqlite3"   :  "*",
     "jade"   :  "*",
-    "forever" :  "*",
+    "mongoose": "*",
+    "session-mongoose": "*",
     "i18next" :  "*",
     "passport" :  "*",
-    "passport-local" :  "*",
-    "nodemon" :  "*",
     "mocha" :  "*",
     "should" :  "*",
     "emailjs" :  "*",
-    "request" :  "*",
-    "querystring" :  "*",
-    "connect-flash" :  "*"
+    "request" :  "*"
   },
   "license": "MIT",
   "engine": {

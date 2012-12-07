@@ -1,4 +1,4 @@
 'use strict';
 
 
-angular.module('geoapp', ['leaflet-directive']);
+angular.module('geoapp', ['leaflet', 'flag']);

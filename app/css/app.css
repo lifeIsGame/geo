@@ -58,8 +58,8 @@ path:hover {
 
 div.flag {
     position: absolute;
-    bottom: 1em;
-    left: 1em;
+    top: 1em;
+    right: 1em;
     width: 26em;
     height: 4em;
     background: white;

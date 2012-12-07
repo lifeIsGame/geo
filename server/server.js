@@ -1,15 +1,15 @@
-var express = require('express')
-  , i18n = require('i18next')
-  , passport = require('passport')
-  , auth = require('./auth')
-  , flash = require('connect-flash')
-  , settings = require('./settings')
-  , urls = require('./urls');
+var express = require('express'),
+    settings = require('./settings'),
+    mongoose = require('mongoose'),
+    urls = require('./urls');
 
-i18n.init();
+var SessionMongoose = require('session-mongoose')(express),
+    app = express();
 
-var app = express();
 module.exports = app;
+
+var conn = 'mongodb://localhost/geo';
+var db = mongoose.connect(conn);
 
 // configure Express
 app.configure(function() {
@@ -21,10 +21,12 @@ app.configure(function() {
   app.use(express.session({ secret: 'eldorado' }));
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/../app'));
-  app.use(i18n.handle);
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(flash());
+  app.use(express.session({
+      store: new SessionMongoose({
+          url: conn
+      }),
+      secret: 'piecake'
+  }));
   app.use(app.router);
 });
 
@@ -40,7 +42,5 @@ app.set("urls", urls);
 
 require('./routes')(app);
 app.listen(3001);
-
-i18n.registerAppHelper(app)
 
 //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
