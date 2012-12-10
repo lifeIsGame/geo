@@ -27,6 +27,8 @@
     "session-mongoose": "*",
     "i18next" :  "*",
     "passport" :  "*",
+    "passport-google" :  "*",
+    "connect-flash" :  "*",
     "mocha" :  "*",
     "should" :  "*",
     "emailjs" :  "*",

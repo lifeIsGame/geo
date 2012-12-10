@@ -4,22 +4,19 @@ var urls= require("../urls"),
 module.exports = function(app) {
 
     app.get(urls.login.url, function(req, res){
-        var title = "Administrator login page";
-        res.render('login', { locals: {
-            username: req.user,
-            message: req.flash('error'),
-            title: title,
-            menu_active: 'home',
-            angular_controller: 'NodeMainController',
-            controller_file: 'main'
-        } });
-
+        res.redirect('/auth/google');
     });
 
-    app.post(urls.login.url,
-        passport.authenticate('local', { failureRedirect: urls.login.url, failureFlash: true }),
-        function(req, res) {
-            res.redirect(urls.admin.url);
+    app.get('/auth/google', 
+        passport.authenticate('google', { failureRedirect: urls.base.url }),
+            function(req, res) {
+            res.redirect(urls.base.url);
+    });
+
+    app.get('/auth/google/return', 
+        passport.authenticate('google', { failureRedirect: urls.base.url }),
+            function(req, res) {
+                res.redirect(urls.base.url);
     });
 
     app.get(urls.logout.url, function(req, res){

@@ -6,6 +6,7 @@
       "jquery": "latest",
       "angular": "latest",
       "d3": "latest",
-      "bootstrap.css": "latest"
+      "bootstrap.css": "latest",
+      "font-awesome": "latest"
     }
 }

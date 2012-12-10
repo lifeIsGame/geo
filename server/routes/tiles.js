@@ -18,6 +18,7 @@ module.exports = function(app) {
                 if (err) {
                     return;
                 }
+    		res.contentType('image/jpeg');
                 res.send(tile);
             });
         });

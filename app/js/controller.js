@@ -1,2 +1,0 @@
-function ExploreController($scope, $location) {
-}

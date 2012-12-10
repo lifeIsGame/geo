@@ -30,45 +30,116 @@ function generateGEOJson(countries) {
 
 module.exports = function(app) {
 
-    app.get(urls.api.countries.world.url, function(req, res) {
-        Country.find(function(err, countries) {
-            if (err) throw err;
-            return res.send(countries);
-        });
+    app.get(urls.api.maps.config.url, function(req, res) {
+	var continent = req.params.continent;
+	var config = {
+		europe: {
+				center: {
+					lat: 55.7765730186677,
+					lng: 27.773437499999996
+				},
+				zoom: {
+					actual: 4,
+					max: 5,
+					min: 3
+				}
+		},
+		southamerica: {
+				center: {
+					lat: -19.973348786110602,
+					lng: -59.0625
+				},
+				zoom: {
+					actual: 3,
+					max: 5,
+					min: 3
+				}
+		},
+		northamerica: {
+				center: {
+					lat: 43.32517767999296,
+					lng: -100.546875
+				},
+				zoom: {
+					actual: 3,
+					max: 5,
+					min: 3
+				}
+		},
+		asia: {
+				center: {
+					lat: 34.45221847282654,
+					lng: 81.03515625
+				},
+				zoom: {
+					actual: 4,
+					max: 5,
+					min: 3
+				}
+		},
+		australia: {
+				center: {
+					lat: -20.3034175184893,
+					lng: 140.9765625
+				},
+				zoom: {
+					actual: 4,
+					max: 5,
+					min: 3
+				}
+		},
+		antarctica: {
+				center: {
+					lat: -75.49715731893083,
+					lng: 67.1484375
+				},
+				zoom: {
+					actual: 2,
+					max: 5,
+					min: 2
+				}
+		},
+		world: {
+				center: {
+					lat: 40.094882122321145, 
+					lng: -3.8232421874999996
+				},
+				zoom: {
+					actual: 2,
+					max: 5,
+					min: 2
+				}
+		},
+		africa: {
+				center: {
+					lat: 12.211180191503997, 
+					lng: 17.2265625
+				},
+				zoom: {
+					actual: 3,
+					max: 5,
+					min: 3
+				}
+		}
+	};
+	res.send(JSON.stringify(config[continent]));
     });
 
-    app.get(urls.api.countries.europe.url, function(req, res) {
-        Country.find({ continentName: "Europe"}, function(err, countries) {
-            if (err) throw err;
-            return res.send(countries);
-        });
-    });
+    app.get(urls.api.countries.geojson.url, function(req, res) {
+	var continent = req.params.continent;
+	var continents = {
+		"world":  {},
+		"europe": { continentName: "Europe" },
+		"asia": { continentName: "Asia" },
+		"northamerica": { continentName: "North America" },
+		"southamerica": { continentName: "South America" },
+		"australia": { continentName: "Australia" },
+		"antarctica":   { continentName: "Antarctica" },
+		"africa":   { continentName: "Africa" }
+	};
+	var query = continents[continent];
 
-    app.get(urls.api.countries.africa.url, function(req, res) {
-        Country.find({ continentName: "Africa"}, function(err, countries) {
-            if (err) throw err;
-            return res.send(countries);
-        });
-    });
-
-    app.get(urls.api.countries.world.geojson.url, function(req, res) {
-        Country.find(function(err, countries) {
-            if (err) throw err;
-	    var geojson = generateGEOJson(countries);
-            return res.send(JSON.stringify(geojson));
-        });
-    });
-
-    app.get(urls.api.countries.europe.geojson.url, function(req, res) {
-        Country.find({ continentName: "Europe" }, function(err, countries) {
-            if (err) throw err;
-	    var geojson = generateGEOJson(countries);
-            return res.send(JSON.stringify(geojson));
-        });
-    });
-
-    app.get(urls.api.countries.africa.geojson.url, function(req, res) {
-        Country.find({ continentName: "Africa" }, function(err, countries) {
+        Country.find(query, function(err, countries) {
             if (err) throw err;
 	    var geojson = generateGEOJson(countries);
             return res.send(JSON.stringify(geojson));

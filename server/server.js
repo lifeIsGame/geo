@@ -1,7 +1,10 @@
 var express = require('express'),
     settings = require('./settings'),
     mongoose = require('mongoose'),
+    passport = require('passport'),
     urls = require('./urls');
+
+require('./auth');
 
 var SessionMongoose = require('session-mongoose')(express),
     app = express();
@@ -18,16 +21,18 @@ app.configure(function() {
   app.use(express.logger());
   app.use(express.cookieParser());
   app.use(express.bodyParser());
-  app.use(express.session({ secret: 'eldorado' }));
   app.use(express.methodOverride());
-  app.use(express.static(__dirname + '/../app'));
+  app.use(express.session({ secret: 'eldorado' }));
   app.use(express.session({
       store: new SessionMongoose({
           url: conn
       }),
       secret: 'piecake'
   }));
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(app.router);
+  app.use(express.static(__dirname + '/../app'));
 });
 
 app.configure('development', function(){

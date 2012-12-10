@@ -6,34 +6,31 @@
         return {
             restrict: "E",
             replace: true,
-            template: '<div class="flag" ng-class="mini"><img ng-src="{{flagImg}}" /><h3 ng-class="countryNameSize">{{ countryName }}</h3></div>',
+            template: '<div class="flag" ng-class="mini"><img ng-src="{{flagImg}}" /><h3 ng-class="country.nameSize">{{ country.name }}</h3></div>',
             scope: {
-                mousex: "=",
-                mousey: "=",
-                countryCode: "=",
-                countryName: "=",
-                countryNameSize: "="
+                mouse: "=",
+                country: "="
             },
             link: function(scope, element, attrs, ctrl) {
 		if (attrs.mini) {
 			scope.mini = "mini";
 		}
-		scope.$watch("mousex", function(n, o) {
+		scope.$watch("mouse.x", function(n, o) {
+			console.log(element, scope.mouse.x, scope.mouse.y);
 		    if (attrs.mini) {
-			element.css("left", scope.mousex + 10);
-			element.css("top", scope.mousey + 10);
+			element.css("left", scope.mouse.x + 10);
+			element.css("top", scope.mouse.y + 10);
 		    };
 		});
 
-		scope.$watch("countryCode", function(newval, oldval) {
+		scope.$watch("country.code", function(newval, oldval) {
 		    if (newval !== undefined) {
 		    	if (attrs.mini) {
-				scope.flagImg="/img/flags/48x32/" + scope.countryCode + ".png";
+				scope.flagImg="/img/flags/48x32/" + scope.country.code + ".png";
 			} else {
-				scope.flagImg="/img/flags/96x64/" + scope.countryCode + ".png";
+				scope.flagImg="/img/flags/96x64/" + scope.country.code + ".png";
 			}
 		    }
-			
 		});
             }
         };

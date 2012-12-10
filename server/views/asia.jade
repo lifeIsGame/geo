@@ -1,8 +1,0 @@
-extends layout
-block main
-  div.full
-    leaflet(zoom="3", max-zoom="5", min-zoom="2", lat="54.57206165565852", lng="73.47656249999999", country-code="countryCode", country-name="countryName", country-name-size="countryNameSize", map="europe")
-
-  div.flag(ng-show="countryCode", ng-cloak)
-    flag(country-code="countryCode")
-    h3(ng-class="countryNameSize") {{countryName}}
