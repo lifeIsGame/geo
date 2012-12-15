@@ -1,3 +1,16 @@
 extends layout
 block main
-  h1 Comming Soon
+
+  div.mainzone
+    leaflet(country="country", map="map", mouse="mouse", click="click")
+
+    div.qbox.span4.flag
+      h2 Can you find...
+      img.flag(ng-src="{{find.img}}")
+      a.pull-right.btn.btn-warning(ng-click="pass()") Pass
+      h3(ng-class="find.nameSize") {{find.countries[find.actual]}}
+      div.pull-right
+          span.label(style="text-align: right;") {{find.left}} left
+          span.label.label-warning(style="text-align: right;") {{find.pass}} passed
+          span.label.label-important(style="text-align: right;") {{find.error}} errors 
+          span.label.label-success(style="text-align: right;") {{find.correct}} correct 

@@ -1,7 +1,7 @@
 extends layout
-block main
 
+block main
   div.mainzone
     leaflet(country="country", map="map", mouse="mouse")
 
-    flag(ng-show="country.code", ng-cloak, country="country", mini="true", mouse="mouse")
+    flag(ng-show="country.code", ng-cloak, country="country", mouse="mouse")

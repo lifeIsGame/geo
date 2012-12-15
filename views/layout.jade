@@ -13,18 +13,18 @@ html
   body(ng-controller=locals.angular_controller, ng-cloak)
     div.container
       header
-        div.navbar.navbar-fixed-top.span8.offset2.mainmenu
+        div.navbar.navbar-fixed-top.mainmenu
           div.navbar-inner
             a.brand(href=settings.urls.base.url)
               i.icon-th-large
               |Geo
             ul.nav.pull-right
               li(class=('discover' == locals.mainmenu_active) && 'active')
-                a(href=settings.urls.maps.world.discover.url)
+                a(href=settings.urls.maps.discover.url)
                   i.icon-sign-blank
                   |Discover
               li(class=('play' == locals.mainmenu_active) && 'active')
-                a(href=settings.urls.maps.world.play.url)
+                a(href=settings.urls.maps.play.url)
                   i.icon-cogs
                   |Play
               if (locals.username)
@@ -37,23 +37,23 @@ html
                   a(href=settings.urls.login.url)
                       i.icon-user
                       |Login
-      div.row
-        div.span7.offset3.navbar-fixed-top.navbar-inverse.discovermenu(ng-show="map", ng-cloak)
+
+        div.navbar-fixed-top.navbar-inverse.discovermenu(ng-show="map", ng-cloak)
           ul.nav.nav-pills.pull-right
-            li(ng-class="{active: map.name=='world'}", class=('world'==locals.discovermenu_active)&&'active')
-              a(ng-click="map.name='world'", href="#") World
-            li(ng-class="{active: map.name=='africa'}", class=('africa'==locals.discovermenu_active)&&'active')
-              a(ng-click="map.name='africa'", href="#") Africa
-            li(ng-class="{active: map.name=='europe'}", class=('europe'==locals.discovermenu_active)&&'active')
-              a(ng-click="map.name='europe'", href="#") Europe
-            li(ng-class="{active: map.name=='asia'}", class=('asia'==locals.discovermenu_active)&&'active')
-              a(ng-click="map.name='asia'", href="#") Asia
-            li(ng-class="{active: map.name=='northamerica'}", class=('northamerica'==locals.discovermenu_active)&&'active')
-              a(ng-click="map.name='northamerica'", href="#") North America
-            li(ng-class="{active: map.name=='southamerica'}", class=('southamerica'==locals.discovermenu_active)&&'active')
-              a(ng-click="map.name='southamerica'", href="#") South America
-            li(ng-class="{active: map.name=='australia'}", class=('australia'==locals.discovermenu_active)&&'active')
-              a(ng-click="map.name='australia'", href="#") Australia
-            li(ng-class="{active: map.name=='antarctica'}", class=('antarctica'==locals.discovermenu_active)&&'active')
-              a(ng-click="map.name='antarctica'", href="#") Antarctica
+            li(ng-class="{active: map.name=='world'}")
+              a(ng-click="map.name='world'", href="#/world") World
+            li(ng-class="{active: map.name=='africa'}")
+              a(ng-click="map.name='africa'", href="#/africa") Africa
+            li(ng-class="{active: map.name=='europe'}")
+              a(ng-click="map.name='europe'", href="#/europe") Europe
+            li(ng-class="{active: map.name=='asia'}")
+              a(ng-click="map.name='asia'", href="#/asia") Asia
+            li(ng-class="{active: map.name=='northamerica'}")
+              a(ng-click="map.name='northamerica'", href="#/northamerica") North America
+            li(ng-class="{active: map.name=='southamerica'}")
+              a(ng-click="map.name='southamerica'", href="#southamerica") South America
+            li(ng-class="{active: map.name=='australia'}")
+              a(ng-click="map.name='australia'", href="#/australia") Australia
+            li(ng-class="{active: map.name=='antarctica'}")
+              a(ng-click="map.name='antarctica'", href="#/anctarctica") Antarctica
     block main

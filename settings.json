@@ -3,16 +3,6 @@
     "public_hostname": "geo.qui.guifi.net",
     "server_hostname": "localhost",
     "server_port": 3001,
-    "base_url": "/",
+    "base_url": "/"
 
-    "admins": [
-        { "id": 1, "username": "admin", "password": "admin" }
-    ],
-
-    "email": {
-        "server": "localhost",
-        "ssl": false,
-        "user": "",
-        "password": ""
-    }
 }

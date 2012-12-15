@@ -7,6 +7,7 @@
       "angular": "latest",
       "d3": "latest",
       "bootstrap.css": "latest",
+      "underscore": "latest",
       "font-awesome": "latest"
     }
 }

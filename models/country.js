@@ -5,12 +5,12 @@ var Schema = mongoose.Schema,
 
 var CountrySchema = new Schema({
    countryName: {
-      	type: String,
-       	required: true
+        type: String,
+        required: true
    },
    isoAlpha3: {
-       	type: String,
-       	required: true
+        type: String,
+        required: true
    },
    countryCode: {
 	type: String,

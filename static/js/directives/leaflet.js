@@ -1,3 +1,7 @@
+(function () {
+   "use strict";
+}());
+
 (function() {
 
     var leafletDirective = angular.module("leaflet", []);
@@ -12,10 +16,15 @@
                 path = d3.geo.path().projection(project);
 
             var feature = g.selectAll("path").data(collection.features).enter().append("path");
+            var mousedown = false;
+            var dragging = false;
 
-	    g.on("mousemove", function(d) {
-		scope.mouse.x = d3.event.x;
-		scope.mouse.y = d3.event.y;
+            g.on("mousemove", function(d) {
+                if (mousedown) {
+			dragging = true;
+		}
+		scope.mouse.x = d3.event.clientX;
+		scope.mouse.y = d3.event.clientY;
                 scope.$apply();
             });
 
@@ -35,11 +44,26 @@
                 scope.$apply();
             });
 
-	    feature.on("mouseout", function(d) {
+            feature.on("mouseout", function(d) {
 		scope.country.code = undefined;
                 scope.$apply();
-	    });
+            });
 
+            feature.on("mousedown", function() {
+		mousedown = true;
+            });
+
+            feature.on("mouseup", function(d) {
+                if (!dragging) {
+			scope.click = d.properties.countryCode;
+			scope.$digest();
+                	scope.$apply();
+		} else {
+			dragging = false;
+		}
+		mousedown = false;
+            });
+	
             map.on("viewreset", reset);
             reset();
 
@@ -58,7 +82,7 @@
                 var point = map.latLngToLayerPoint(new L.LatLng(x[1], x[0]));
                 return [point.x, point.y];
             }
-        }
+        };
     }
 
     leafletDirective.directive("leaflet", function($http, $log) {
@@ -69,55 +93,57 @@
             scope: {
                 country: "=",
                 map: "=",
-                mouse: "=",
+                click: "=",
+                mouse: "="
             },
             link: function(scope, element, attrs, ctrl) {
                 var $el = element[0],
                     options = {
                         zoomControl: false,
-                        zoom: scope.map.zoom.actual || 2,
-                        minZoom: scope.map.zoom.min || 6,
-                        maxZoom: scope.map.zoom.max || 12,
-                        lat: scope.map.lat || 40.094882122321145,
-                        lng: scope.map.lng || -3.8232421874999996
+                        zoom: 2,
+                        minZoom: 2,
+                        maxZoom: 6,
+                        lat: 40.094882122321145,
+                        lng: -3.8232421874999996
                     };
 
                 var map = new L.Map($el, options);
                 L.tileLayer('/tiles/{z}/{x}/{y}.png').addTo(map);
-        	var point = new L.LatLng(options.lat, options.lng);
-        	map.setView(point, options.zoom);
+                var point = new L.LatLng(options.lat, options.lng);
+                map.setView(point, options.zoom);
 		map.attributionControl.setPrefix('');
 
 		scope.$watch("map.name", function(newval, oldval) {
-                	d3.json("/api/countries/" + scope.map.name + "/geojson", manageSvgData(map, scope));
+			if (!newval) return;
+                        d3.json("/api/countries/" + scope.map.name + "/geojson", manageSvgData(map, scope));
 		});
 
 		scope.$watch("map.center.lat", function(newval, oldval) {
-			if (scope.map.center.lat === undefined) return;
-        		var point = new L.LatLng(scope.map.center.lat, scope.map.center.lng);
-        		map.setView(point, scope.map.zoom.actual);
+			if (!newval) return;
+                        var point = new L.LatLng(scope.map.center.lat, scope.map.center.lng);
+                        map.setView(point, scope.map.zoom);
 		});
 
 		var zoomFS = new L.Control.ZoomFS({ position: 'bottomright' }); 
 		map.addControl(zoomFS);
 
 		map.on('enterFullscreen', function(){
-  			if(window.console) window.console.log('enterFullscreen');
+                        if(window.console) window.console.log('enterFullscreen');
 
-  			if ($el.webkitEnterFullScreen) {
-    				el.webkitEnterFullScreen();
-  			} else {
-    				if (el.mozRequestFullScreen) {
-      					el.mozRequestFullScreen();
-    				} else {
-      					el.requestFullscreen();
-    				}
-  			}
-  			el.ondblclick = exitFullscreen;
+                        if ($el.webkitEnterFullScreen) {
+                                el.webkitEnterFullScreen();
+                        } else {
+                                if (el.mozRequestFullScreen) {
+                                        el.mozRequestFullScreen();
+                                } else {
+                                        el.requestFullscreen();
+                                }
+                        }
+                        el.ondblclick = exitFullscreen;
 		});
 		
 		map.on('exitFullscreen', function(){
-  			if(window.console) window.console.log('exitFullscreen');
+                        if(window.console) window.console.log('exitFullscreen');
 		});
 
             }

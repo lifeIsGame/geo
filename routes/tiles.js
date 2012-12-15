@@ -1,3 +1,5 @@
+"use strict";
+
 var urls= require("../urls"),
     tilelive = require('tilelive'),
     mbtiles = require('mbtiles');
@@ -6,8 +8,10 @@ mbtiles.registerProtocols(tilelive);
 
 module.exports = function(app) {
 
-    tilelive.load("mbtiles://" + __dirname + '/../../data/geography.mbtiles', function(err, source) {
-        if (err) throw err;
+    tilelive.load("mbtiles://" + __dirname + '/../data/geography.mbtiles', function(err, source) {
+        if (err) { 
+		throw err;
+	}
 
         app.get('/tiles/:z/:x/:y.*', function(req, res) {
             var x = req.param('x'),
@@ -18,7 +22,7 @@ module.exports = function(app) {
                 if (err) {
                     return;
                 }
-    		res.contentType('image/jpeg');
+		res.contentType('image/jpeg');
                 res.send(tile);
             });
         });
