@@ -29,6 +29,8 @@
     "passport" :  "*",
     "passport-google" :  "*",
     "mocha" :  "*",
+    "underscore" :  "*",
+    "grunt-simple-mocha" :  "*",
     "should" :  "*",
     "request" :  "*"
   },

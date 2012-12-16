@@ -1,7 +1,7 @@
 "use strict";
 
 var Country = require('../models/country'),
-    urls    = require('../urls');
+    urls    = require('../common/urls');
 
 function generateGEOJson(countries) {
     var features = [];
@@ -32,7 +32,7 @@ function generateGEOJson(countries) {
 
 module.exports = function(app) {
 
-    app.get(urls.api.maps.config.url, function(req, res) {
+    app.get(urls.api.countries.config, function(req, res) {
 	var continent = req.params.continent;
 	var config = {
 		europe: {
@@ -95,19 +95,26 @@ module.exports = function(app) {
 	res.send(JSON.stringify(config[continent]));
     });
 
-    app.get(urls.api.countries.url, function(req, res) {
+    app.get(urls.api.countries.names, function(req, res) {
 	var continent = req.params.continent;
 	var continents = {
-		"world":  {},
-		"europe": { continentName: "Europe" },
-		"asia": { continentName: "Asia" },
-		"northamerica": { continentName: "North America" },
-		"southamerica": { continentName: "South America" },
-		"australia": { continentName: "Australia" },
-		"antarctica":   { continentName: "Antarctica" },
-		"africa":   { continentName: "Africa" }
+		world:  {},
+		europe: { continentName: "Europe" },
+		asia: { continentName: "Asia" },
+		northamerica: { continentName: "North America" },
+		southamerica: { continentName: "South America" },
+		australia: { continentName: "Oceania" },
+		antarctica:   { continentName: "Antarctica" },
+		africa:   { continentName: "Africa" }
 	};
+
+	if (!continents.hasOwnProperty(continent)) {
+		res.send(500);
+		return;
+	};
+
 	var query = continents[continent];
+	query["geometry"] = { $exists: true };
 
         Country.find(query, function(err, countries) {
             if (err) {
@@ -123,7 +130,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get(urls.api.countries.geojson.url, function(req, res) {
+    app.get(urls.api.countries.geojson, function(req, res) {
 	var continent = req.params.continent;
 	var continents = {
 		"world":  {},
@@ -131,7 +138,7 @@ module.exports = function(app) {
 		"asia": { continentName: "Asia" },
 		"northamerica": { continentName: "North America" },
 		"southamerica": { continentName: "South America" },
-		"australia": { continentName: "Australia" },
+		"australia": { continentName: "Oceania" },
 		"antarctica":   { continentName: "Antarctica" },
 		"africa":   { continentName: "Africa" }
 	};

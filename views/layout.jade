@@ -3,38 +3,38 @@ html
   head
     meta(charset='utf-8')
     title= typeof(locals.title) !== 'undefined' ? locals.title : "Geography maps"
-    link(rel="stylesheet", href=settings.urls.base.url + "components/bootstrap.css/css/bootstrap.min.css")
-    link(rel="stylesheet", href=settings.urls.base.url + "components/bootstrap.css/css/bootstrap-responsive.min.css")
-    link(rel="stylesheet", href=settings.urls.base.url + "components/font-awesome/css/font-awesome.css")
-    link(rel="stylesheet", href=settings.urls.base.url + "components/leaflet/leaflet.css")
-    link(rel="stylesheet", href=settings.urls.base.url + "css/app.css")
-    script(src=settings.urls.base.url + "js/main.js")
+    link(rel="stylesheet", href=urls.base + "components/bootstrap.css/css/bootstrap.min.css")
+    link(rel="stylesheet", href=urls.base + "components/bootstrap.css/css/bootstrap-responsive.min.css")
+    link(rel="stylesheet", href=urls.base + "components/font-awesome/css/font-awesome.css")
+    link(rel="stylesheet", href=urls.base + "components/leaflet/leaflet.css")
+    link(rel="stylesheet", href=urls.base + "css/app.css")
+    script(src=urls.base + "js/main.js")
 
   body(ng-controller=locals.angular_controller, ng-cloak)
     div.container
       header
         div.navbar.navbar-fixed-top.mainmenu
           div.navbar-inner
-            a.brand(href=settings.urls.base.url)
+            a.brand(href=urls.base)
               i.icon-th-large
               |Geo
             ul.nav.pull-right
               li(class=('discover' == locals.mainmenu_active) && 'active')
-                a(href=settings.urls.maps.discover.url)
+                a(href=urls.maps.discover)
                   i.icon-sign-blank
                   |Discover
               li(class=('play' == locals.mainmenu_active) && 'active')
-                a(href=settings.urls.maps.play.url)
+                a(href=urls.maps.play)
                   i.icon-cogs
                   |Play
               if (locals.username)
                 li
-                  a(href=settings.urls.logout.url)
+                  a(href=urls.logout)
                     i.icon-unlock
                     |Logout
               else
                 li
-                  a(href=settings.urls.login.url)
+                  a(href=urls.login)
                       i.icon-user
                       |Login
 

@@ -5,9 +5,6 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: '<json:package.json>',
-    test: {
-      files: ['test/**/*.js']
-    },
     lint: {
       files: ['grunt.js', '*.js', 'models/*.js', 'views/*.js', 'routes/*.js']
     },
@@ -15,6 +12,18 @@ module.exports = function(grunt) {
       files: '<config:lint.files>',
       tasks: 'default'
     },
+    simplemocha: {
+      options: {
+        globals: ['should'],
+        timeout: 3000,
+        ignoreLeaks: false,
+        grep: '*-test',
+        ui: 'bdd',
+        reporter: 'tap'
+      },
+      all: { src: 'test/**/*.js' }
+    },
+
     jshint: {
       options: {
         curly: true,
@@ -35,7 +44,9 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-simple-mocha');
+
   // Default task.
-  grunt.registerTask('default', 'lint test');
+  grunt.registerTask('default', 'lint simplemocha');
 
 };

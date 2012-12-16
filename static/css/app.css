@@ -59,10 +59,9 @@ path:hover {
 
 div.flag {
     position: absolute;
-    top: 1em;
-    right: 1em;
+    bottom: 1em;
+    left: 1em;
     width: 26em;
-    height: 4em;
     background: white;
     border-radius: 8px;
     opacity: .8;
@@ -94,7 +93,7 @@ div.flag.mini > img {
     float: left;
 }
 
-img.flag {
+div.flag > img {
     height: 4em;
     margin-right: 1em;
     border-radius: 8px;
@@ -205,9 +204,9 @@ div.mainmenu {
 }
 
 div.qbox {
-  width: 18em;
+  width: 16.5em;
   background: white;
-  height: 12em;
+  height: 9em;
   z-index: 10;
   position: absolute;
   bottom: 4em;
@@ -219,9 +218,30 @@ div.qbox {
 }
 
 div.qbox h2 {
+  font-size: 1.2em;
+  line-height: 1.5em;
   margin: 0;
+  margin-bottom: 1em;
 }
 
 div.qbox span {
   margin-left: .3em;
 }
+
+div.bottom {
+  position: absolute;
+  bottom: .3em;
+  right: .3em;
+}
+
+div.qbox .btn {
+  position: absolute;
+  right: .3em;
+  top: .3em;
+}
+
+.good {
+  fill: green;
+  fill-opacity: .4;
+}
+

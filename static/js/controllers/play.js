@@ -112,6 +112,7 @@ function PlayController($scope, $location, $http) {
 			$scope.find.left = keys.length;
 			$scope.find.correct = 0;
 			$scope.find.error = 0;
+			$scope.find.pass = 0;
 			$scope.find.actual= keys[Math.floor((Math.random()*keys.length)+1)];
 			$scope.find.img = "/img/flags/96x64/" + $scope.find.actual + ".png";
 		});

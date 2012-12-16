@@ -4,10 +4,11 @@
 var express = require('express'),
     settings = require('./settings'),
     mongoose = require('mongoose'),
-    passport = require('passport'),
-    urls = require('./urls');
+    urls = require('./common/urls'),
+    generate_mongo_url = require('./common/mongo').generate_mongo_url,
+    passport = require('passport')
 
-require('./auth');
+require('./common/auth');
 
 var SessionMongoose = require('session-mongoose')(express),
     app = express();
@@ -19,27 +20,8 @@ if(process.env.VCAP_SERVICES){
     var mongo = env['mongodb-1.8'][0]['credentials'];
 }
 else{
-    var mongo = {
-    "hostname":"localhost",
-    "port":27017,
-    "username":"",
-    "password":"",
-    "name":"",
-    "db":"geo"
-    };
+    var mongo = settings.mongo;
 }
-
-var generate_mongo_url = function(obj){
-    obj.hostname = (obj.hostname || 'localhost');
-    obj.port = (obj.port || 27017);
-    obj.db = (obj.db || 'test');
-    if(obj.username && obj.password){
-        return "mongodb://" + obj.username + ":" + obj.password + "@" + obj.hostname + ":" + obj.port + "/" + obj.db;
-    }
-    else{
-        return "mongodb://" + obj.hostname + ":" + obj.port + "/" + obj.db;
-    }
-};
 
 var conn = generate_mongo_url(mongo);
 
@@ -62,6 +44,7 @@ app.configure(function() {
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.locals({ urls: urls });
   app.use(app.router);
   app.use(express.static(__dirname + '/static'));
 });
@@ -73,8 +56,6 @@ app.configure('development', function(){
 app.configure('production', function(){
   app.use(express.errorHandler());
 });
-
-app.set("urls", urls);
 
 require('./routes')(app);
 app.listen(3001);

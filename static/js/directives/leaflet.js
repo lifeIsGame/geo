@@ -16,6 +16,7 @@
                 path = d3.geo.path().projection(project);
 
             var feature = g.selectAll("path").data(collection.features).enter().append("path");
+
             var mousedown = false;
             var dragging = false;
 

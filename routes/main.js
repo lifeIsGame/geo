@@ -1,16 +1,16 @@
 "use strict";
 
-var urls= require("../urls");
+var urls= require("../common/urls");
 
 module.exports = function(app) {
 
-    if (urls.base.url !== "/") {
+    if (urls.base !== "/") {
         app.get("/", function(req, res) {
-            res.redirect(urls.base.url);
+            res.redirect(urls.base);
         });
     }
 
-    app.get(urls.base.url, function(req, res) {
+    app.get(urls.base, function(req, res) {
 	var title = "Geography maps";
 	res.render("home", { locals: {
             username: req.user,
@@ -18,7 +18,7 @@ module.exports = function(app) {
         } });
     });
 
-    app.get(urls.maps.play.url, function(req, res) {
+    app.get(urls.maps.play, function(req, res) {
 	var title = urls.maps.play.title;
 	res.render("play", { locals: {
             title: title,
@@ -28,7 +28,7 @@ module.exports = function(app) {
         } });
     });
 
-    app.get(urls.maps.discover.url, function(req, res) {
+    app.get(urls.maps.discover, function(req, res) {
 	var title = urls.maps.discover.title;
 	res.render("discover", { locals: {
             title: title,

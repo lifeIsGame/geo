@@ -1,0 +1,17 @@
+{
+    "logout": "logout",
+    "login" : "login",
+    "admin" : "admin",
+    "maps"  : {
+        "discover": "discover/",
+        "play"    : "play/"
+    },
+    "api": {
+        "countries": {
+            "config"  : "api/maps/:continent/config",
+            "names"   : "api/countries/:continent",
+            "geojson" : "api/countries/:continent/geojson"
+        }
+    },
+    "tiles": "tiles/:z/:x/:y.png"
+}

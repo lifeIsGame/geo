@@ -1,7 +1,8 @@
 "use strict";
 
 var passport = require('passport'),
-    urls = require('./urls'),
+    urls = require('../urls'),
+    settings = require('../settings'),
     GoogleStrategy = require('passport-google').Strategy;
 
 passport.use(new GoogleStrategy({
@@ -24,7 +25,7 @@ passport.deserializeUser(function(obj, done) {
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect(urls.login.url);
+  res.redirect(urls.login);
 }
 
 module.exports.ensureAuthenticated = ensureAuthenticated;

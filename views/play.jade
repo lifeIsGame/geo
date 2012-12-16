@@ -4,12 +4,12 @@ block main
   div.mainzone
     leaflet(country="country", map="map", mouse="mouse", click="click")
 
-    div.qbox.span4.flag
+    div.qbox.flag
+      a.btn.btn-warning(ng-show="find.left", ng-click="pass()") Pass
       h2 Can you find...
-      img.flag(ng-src="{{find.img}}")
-      a.pull-right.btn.btn-warning(ng-click="pass()") Pass
+      img.pull-left(ng-src="{{find.img}}")
       h3(ng-class="find.nameSize") {{find.countries[find.actual]}}
-      div.pull-right
+      div.bottom.pull-right
           span.label(style="text-align: right;") {{find.left}} left
           span.label.label-warning(style="text-align: right;") {{find.pass}} passed
           span.label.label-important(style="text-align: right;") {{find.error}} errors 
