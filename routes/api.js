@@ -111,7 +111,7 @@ module.exports = function(app) {
 	if (!continents.hasOwnProperty(continent)) {
 		res.send(500);
 		return;
-	};
+	}
 
 	var query = continents[continent];
 	query["geometry"] = { $exists: true };

@@ -18,8 +18,8 @@ module.exports = function(app) {
         } });
     });
 
-    app.get(urls.maps.play, function(req, res) {
-	var title = urls.maps.play.title;
+    app.get(urls.play, function(req, res) {
+	var title = "Geo: Countries quiz";
 	res.render("play", { locals: {
             title: title,
             username: req.user,
@@ -28,8 +28,8 @@ module.exports = function(app) {
         } });
     });
 
-    app.get(urls.maps.discover, function(req, res) {
-	var title = urls.maps.discover.title;
+    app.get(urls.discover, function(req, res) {
+	var title = "Geo: Lookup for countries";
 	res.render("discover", { locals: {
             title: title,
             username: req.user,

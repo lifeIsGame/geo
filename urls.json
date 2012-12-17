@@ -1,11 +1,8 @@
 {
     "logout": "logout",
     "login" : "login",
-    "admin" : "admin",
-    "maps"  : {
-        "discover": "discover/",
-        "play"    : "play/"
-    },
+    "discover": "discover/",
+    "play"    : "play/",
     "api": {
         "countries": {
             "config"  : "api/maps/:continent/config",

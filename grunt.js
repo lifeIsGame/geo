@@ -12,18 +12,6 @@ module.exports = function(grunt) {
       files: '<config:lint.files>',
       tasks: 'default'
     },
-    simplemocha: {
-      options: {
-        globals: ['should'],
-        timeout: 3000,
-        ignoreLeaks: false,
-        grep: '*-test',
-        ui: 'bdd',
-        reporter: 'tap'
-      },
-      all: { src: 'test/**/*.js' }
-    },
-
     jshint: {
       options: {
         curly: true,
@@ -41,12 +29,18 @@ module.exports = function(grunt) {
       globals: {
         exports: true
       }
+    },
+    mochaTest: {
+      files: ['test/**/*.test.js']
+    },
+    mochaTestConfig: {
+      options: {
+        reporter: 'nyan'        
+      }
     }
   });
 
-  grunt.loadNpmTasks('grunt-simple-mocha');
-
-  // Default task.
-  grunt.registerTask('default', 'lint simplemocha');
+  grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.registerTask('default', 'lint mochaTest');
 
 };

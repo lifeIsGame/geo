@@ -6,7 +6,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     urls = require('./common/urls'),
     generate_mongo_url = require('./common/mongo').generate_mongo_url,
-    passport = require('passport')
+    passport = require('passport');
 
 require('./common/auth');
 

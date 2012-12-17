@@ -28,9 +28,9 @@
     "session-mongoose": "*",
     "passport" :  "*",
     "passport-google" :  "*",
-    "mocha" :  "*",
     "underscore" :  "*",
-    "grunt-simple-mocha" :  "*",
+    "mocha" :  "*",
+    "grunt-mocha-test" :  "*",
     "should" :  "*",
     "request" :  "*"
   },

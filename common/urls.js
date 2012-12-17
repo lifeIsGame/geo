@@ -4,13 +4,13 @@ var urls     = require('../urls'),
     settings = require('../settings'),
     _und     = require('underscore');
 
-function baseurls() {
+function urlsConstructor(base_url, urls) {
 
   function mapurl(arr, baseurl) {
       var newarr = {};
       _und.map(arr, function(val, key) {
           if (typeof val === "string") {
-              newarr[key] = settings.base_url + val;
+              newarr[key] = base_url + val;
           } else {
               newarr[key] = mapurl(val, baseurl);
 	  }
@@ -18,10 +18,11 @@ function baseurls() {
       return newarr;
   }
 
-  var newurls = mapurl(urls, settings.base_url);
+  var newurls = mapurl(urls, base_url);
 
-  newurls.base = settings.base_url;
+  newurls.base = base_url;
   return newurls;
 }
 
-module.exports = baseurls();
+module.exports.urlsConstructor = urlsConstructor;
+module.exports = urlsConstructor(settings.base_url, urls);
