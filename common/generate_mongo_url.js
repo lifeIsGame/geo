@@ -12,4 +12,4 @@ var generate_mongo_url = function(obj){
     }
 };
 
-module.exports.generate_mongo_url = generate_mongo_url;
+module.exports = generate_mongo_url;

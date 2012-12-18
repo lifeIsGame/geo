@@ -2,18 +2,20 @@
 "use strict";
 
 var express = require('express'),
-    settings = require('./settings'),
+    settings = require('./config/settings'),
     mongoose = require('mongoose'),
-    urls = require('./common/urls'),
-    generate_mongo_url = require('./common/mongo').generate_mongo_url,
-    passport = require('passport');
-
-require('./common/auth');
+    urls_constructor = require('./common/urls_constructor'),
+    generate_mongo_url = require('./common/generate_mongo_url'),
+    passport = require('passport'),
+    google_auth = require('./common/google_auth'),
+    relative_urls = require('./config/urls');
 
 var SessionMongoose = require('session-mongoose')(express),
     app = express();
 
-module.exports = app;
+google_auth.configure();
+
+var urls = urls_constructor(settings.base_url, relative_urls);
 
 if(process.env.VCAP_SERVICES){
     var env = JSON.parse(process.env.VCAP_SERVICES);
@@ -24,7 +26,6 @@ else{
 }
 
 var conn = generate_mongo_url(mongo);
-
 var db = mongoose.connect(conn);
 
 // configure Express
@@ -57,7 +58,7 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-require('./routes')(app);
+require('./routes')(app, urls);
 app.listen(3001);
 
-//console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+module.exports = app;

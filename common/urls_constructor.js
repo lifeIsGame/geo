@@ -1,8 +1,6 @@
 "use strict";
 
-var urls     = require('../urls'),
-    settings = require('../settings'),
-    _und     = require('underscore');
+var _und     = require('underscore');
 
 function urlsConstructor(base_url, urls) {
 
@@ -24,5 +22,4 @@ function urlsConstructor(base_url, urls) {
   return newurls;
 }
 
-module.exports.urlsConstructor = urlsConstructor;
-module.exports = urlsConstructor(settings.base_url, urls);
+module.exports = urlsConstructor;

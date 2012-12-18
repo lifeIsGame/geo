@@ -1,7 +1,6 @@
 "use strict";
 
-var Country = require('../models/country'),
-    urls    = require('../common/urls');
+var Country = require('../models/country');
 
 function generateGEOJson(countries) {
     var features = [];
@@ -30,7 +29,7 @@ function generateGEOJson(countries) {
     return geojson;
 }
 
-module.exports = function(app) {
+module.exports = function(app, urls) {
 
     app.get(urls.api.countries.config, function(req, res) {
 	var continent = req.params.continent;

@@ -1,8 +1,11 @@
 "use strict";
 
-var urls= require("../common/urls");
+module.exports = function(app, urls) {
 
-module.exports = function(app) {
+    function ensureAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) { return next(); }
+        res.redirect(urls.login);
+    }
 
     if (urls.base !== "/") {
         app.get("/", function(req, res) {

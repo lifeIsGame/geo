@@ -1,12 +1,11 @@
 "use strict";
 
-var urls= require("../common/urls"),
-    tilelive = require('tilelive'),
+var tilelive = require('tilelive'),
     mbtiles = require('mbtiles');
 
 mbtiles.registerProtocols(tilelive);
 
-module.exports = function(app) {
+module.exports = function(app, urls) {
 
     tilelive.load("mbtiles://" + __dirname + '/../tiles/geography.mbtiles', function(err, source) {
         if (err) { 

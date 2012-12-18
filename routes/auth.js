@@ -1,18 +1,13 @@
 "use strict";
 
-var urls= require("../common/urls"),
-    passport = require("passport");
+var passport = require("passport");
 
-module.exports = function(app) {
+module.exports = function(app, urls) {
 
-    app.get(urls.login, function(req, res){
-        res.redirect('/auth/google');
-    });
-
-    app.get('/auth/google', 
+    app.get(urls.login,
         passport.authenticate('google', { failureRedirect: urls.base }),
             function(req, res) {
-            res.redirect(urls.base.url);
+            res.redirect(urls.base);
     });
 
     app.get('/auth/google/return', 
